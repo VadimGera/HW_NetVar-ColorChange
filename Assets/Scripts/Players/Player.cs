@@ -33,6 +33,8 @@ namespace Assets.Scripts.Players
            NetworkVariableWritePermission.Owner
        );
 
+        private Color previousColor;
+
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
@@ -53,10 +55,22 @@ namespace Assets.Scripts.Players
         {
             playerRenderer.material.color = newColor;
 
-            if (IsOwner)
+            if (IsServer)
             {
                 playerColor.Value = newColor;
             }
+
+            else if (IsClient)
+            {
+                // Если это клиент, выполните сетевой вызов на сервере, чтобы обновить цвет на хосте
+                UpdatePlayerColorOnServerRpc(newColor);
+            }
+        }
+        [ServerRpc(RequireOwnership = false)]
+        private void UpdatePlayerColorOnServerRpc(Color newColor)
+        {
+            // Выполните обновление цвета на хосте
+            playerRenderer.material.color = newColor;
         }
 
 
