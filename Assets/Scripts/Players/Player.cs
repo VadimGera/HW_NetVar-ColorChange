@@ -62,18 +62,15 @@ namespace Assets.Scripts.Players
 
             else if (IsClient)
             {
-                // Если это клиент, выполните сетевой вызов на сервере, чтобы обновить цвет на хосте
                 UpdatePlayerColorOnServerRpc(newColor);
             }
         }
+
         [ServerRpc(RequireOwnership = false)]
         private void UpdatePlayerColorOnServerRpc(Color newColor)
         {
-            // Выполните обновление цвета на хосте
             playerRenderer.material.color = newColor;
         }
-
-
         private void Update()
         {
             if (IsOwner)
