@@ -11,6 +11,7 @@ namespace Assets.Scripts.Players
         [SerializeField] private float jumpPower = 10;
         [SerializeField] private float jumpDelay = 0.5f;
         [SerializeField] private bool jumpReady = false;
+        [SerializeField] private Renderer playerRenderer;
         
         
         [SerializeField] private NetworkVariable<Vector2> input = new(
@@ -23,6 +24,32 @@ namespace Assets.Scripts.Players
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
             );
+        [SerializeField]
+        private NetworkVariable<Color> playerColor = new(
+           Color.white,
+           NetworkVariableReadPermission.Everyone,
+           NetworkVariableWritePermission.Owner
+       );
+
+        private void Start()
+        {
+            if (IsLocalPlayer)
+            {
+                playerColor.OnValueChanged += UpdatePlayerColor;
+
+                UpdatePlayerColor(playerColor.Value, playerColor.Value);
+            }
+        }
+
+        private void UpdatePlayerColor(Color previousColor, Color newColor)
+        {
+            playerRenderer.material.color = newColor;
+        }
+
+        private void OnDestroy()
+        {
+            playerColor.OnValueChanged -= UpdatePlayerColor;
+        }
 
 
 
@@ -37,7 +64,12 @@ namespace Assets.Scripts.Players
 
                 jump.Value = Input.GetKey(KeyCode.Space);
 
-                    
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    playerColor.Value = new Color(Random.value, Random.value, Random.value);
+                }
+
+
             }
 
             if (IsServer)

@@ -328,7 +328,10 @@ MonoBehaviour:
   jumpPower: 10
   jumpDelay: 0.5
   jumpReady: 1
+  playerRenderer: {fileID: 3813760612882781457}
   input:
     m_InternalValue: {x: 0, y: 0}
   jump:
     m_InternalValue: 0
+  playerColor:
+    m_InternalValue: {r: 1, g: 1, b: 1, a: 1}
