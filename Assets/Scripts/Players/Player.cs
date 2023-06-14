@@ -33,7 +33,7 @@ namespace Assets.Scripts.Players
 
         private void Start()
         {
-            if (IsLocalPlayer)
+            if (IsOwner)
             {
                 playerColor.OnValueChanged += UpdatePlayerColor;
 
@@ -46,10 +46,7 @@ namespace Assets.Scripts.Players
             playerRenderer.material.color = newColor;
         }
 
-        private void OnDestroy()
-        {
-            playerColor.OnValueChanged -= UpdatePlayerColor;
-        }
+        
 
 
 
