@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
 {
     public UnityEvent death = new();
     [SerializeField] private float amount;
