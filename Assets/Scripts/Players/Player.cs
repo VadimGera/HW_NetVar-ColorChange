@@ -12,6 +12,8 @@ namespace Assets.Scripts.Players
         [SerializeField] private float jumpDelay = 0.5f;
         [SerializeField] private bool jumpReady = false;
         [SerializeField] private Renderer playerRenderer;
+        [SerializeField] private Bullet[] bulletPrefab;
+        [SerializeField] private Transform shootPoint;
 
 
         [SerializeField]
@@ -71,6 +73,14 @@ namespace Assets.Scripts.Players
         {
             playerRenderer.material.color = newColor;
         }
+
+        [ServerRpc]
+        private void ShootServerRpc()
+        {
+            var randomBullet = Random.Range(0, bulletPrefab.Length);
+            var bullet = Instantiate(bulletPrefab[randomBullet], shootPoint.position, Quaternion.identity);
+            bullet.Spawn(shootPoint.forward);
+        }
         private void Update()
         {
             if (IsOwner)
@@ -85,6 +95,11 @@ namespace Assets.Scripts.Players
                 if (Input.GetKeyDown(KeyCode.C))
                 {
                     playerColor.Value = new Color(Random.value, Random.value, Random.value);
+                }
+
+                if (Input.GetMouseButtonDown(0)) 
+                {
+                    ShootServerRpc();
                 }
 
 

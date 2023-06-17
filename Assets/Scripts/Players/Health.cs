@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public UnityEvent death = new();
+    [SerializeField] private float amount;
+    public bool Alive => amount > 0;
 
-    // Update is called once per frame
-    void Update()
+    public void Damage(float value)
     {
-        
+        amount -= value;
+        if (amount <= 0)
+        {
+            death.Invoke();
+            gameObject.SetActive(false);
+            GetComponent<NetworkObject>().Despawn();
+        }
     }
 }

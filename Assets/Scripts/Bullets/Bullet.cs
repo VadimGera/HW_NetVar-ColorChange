@@ -1,18 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int damage;
+    [SerializeField] private float speed;
+    [SerializeField] private Vector3 direction;
+    [SerializeField] private NetworkObject networkObject;
+
+    private void Update()
     {
-        
+        transform.Translate(direction * (Time.deltaTime * speed));
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Spawn(Vector3 direct)
     {
-        
+        direction = direct.normalized;
+        networkObject.Spawn(true);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (IsServer)
+        {
+            if (collision.collider!.TryGetComponent(out Health health))
+            {
+                health!.Damage(damage);
+                GetComponent<NetworkObject>()!.Despawn();
+            }
+        }
     }
 }
