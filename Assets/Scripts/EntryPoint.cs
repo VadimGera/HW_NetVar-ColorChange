@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -5,40 +6,26 @@ using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] private NetworkManager networkManager;
-    [SerializeField] private List<StartNetworkButton> buttons;
-
-
-
+    [SerializeField] private NetworkButtons networkButtons;
+    [SerializeField] private NetworkManager network;
 
     private void Start()
     {
-        if (networkManager == null)
+        networkButtons.request.AddListener(mode =>
         {
-            throw new NullReferenceException("Network manager is not assigned");
-        }
-
-
-        foreach (var startNetworkButton in buttons)
-        {
-            startNetworkButton.request.AddListener( e =>
+            switch (mode)
             {
-                switch (e)
-                {
-                    case Assets.Scripts.StartMode.Host:
-                        networkManager.StartHost();
-                        break;
-                    case Assets.Scripts.StartMode.Client:
-                        networkManager.StartClient();
-                        break;
-                }
-
-            });
-
+                case NetworkButton.Mode.Host:
+                    network.StartHost();
+                    break;
+                case NetworkButton.Mode.Client:
+                    network.StartClient();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            networkButtons.Hide();
         }
-
+        );
     }
-
-
-
 }

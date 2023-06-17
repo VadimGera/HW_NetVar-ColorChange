@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3162822203695102964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8433487369855765139}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8433487369855765139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3162822203695102964}
+  m_LocalRotation: {x: -0.5029893, y: -0.5057848, z: 0.49419695, w: 0.4969436}
+  m_LocalPosition: {x: -0.489, y: 0, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4784108649441575207}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -91.01, z: 89.682}
 --- !u!1 &5648298781545777169
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +221,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.329, z: 0.436}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8433487369855765139}
   m_Father: {fileID: 7771279557504359707}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
@@ -269,6 +301,7 @@ GameObject:
   - component: {fileID: 4651678798234004760}
   - component: {fileID: 6451792609289754159}
   - component: {fileID: 1953743434500627524}
+  - component: {fileID: -4382154810074556211}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -329,9 +362,29 @@ MonoBehaviour:
   jumpDelay: 0.5
   jumpReady: 1
   playerRenderer: {fileID: 3813760612882781457}
+  bulletPrefab:
+  - {fileID: 4230099767417364230, guid: 75aba3ca3a7a72f4980d1b8cc50c3c20, type: 3}
+  - {fileID: -7019513784118409896, guid: 3cd4b182ab0d4c04ca480c2918fab88b, type: 3}
+  shootPoint: {fileID: 8433487369855765139}
   input:
     m_InternalValue: {x: 0, y: 0}
   jump:
     m_InternalValue: 0
   playerColor:
     m_InternalValue: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &-4382154810074556211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8570966325129925052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80268cafc35993a478f1836654e7c78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  death:
+    m_PersistentCalls:
+      m_Calls: []
+  amount: 50
