@@ -79,7 +79,7 @@ namespace Assets.Scripts.Players
         {
             var randomBullet = Random.Range(0, bulletPrefab.Length);
             var bullet = Instantiate(bulletPrefab[randomBullet], shootPoint.position, Quaternion.identity);
-            bullet.Spawn(shootPoint.forward);
+            bullet.OnNetworkSpawn(shootPoint.forward);
         }
         private void Update()
         {

@@ -16,7 +16,7 @@ public class Bullet : NetworkBehaviour
         transform.Translate(direction * (Time.deltaTime * speed));
     }
 
-    public void Spawn(Vector3 direct)
+    public void OnNetworkSpawn(Vector3 direct)
     {
         direction = direct.normalized;
         networkObject.Spawn(true);
