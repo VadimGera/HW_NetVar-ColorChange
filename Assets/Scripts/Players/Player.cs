@@ -114,7 +114,7 @@ namespace Assets.Scripts.Players
                 );
                 if (direction != Vector3.zero)
                 {
-                    transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                    rigidbody.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
                 }
 
 
